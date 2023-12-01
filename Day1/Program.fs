@@ -32,7 +32,7 @@ let getDigitIndices numAsString num str =
     |> List.map (fun x -> { digit = num; index = x })
     |> List.distinct
 
-let getIndicesForSpelledOutNumbers (line : string) =
+let getSpelledOutNumbersIndices (line : string) =
     numbersAsWords
     |> Seq.fold (fun acc numAsString ->
                  match line.Contains numAsString.Key with
@@ -42,9 +42,9 @@ let getIndicesForSpelledOutNumbers (line : string) =
                  | false -> acc)
                  []
 
-let getNumbersIndicesInLine (line : string) =
+let getNumbersIndices (line : string) =
     line
-    |> Seq.filter (fun x -> Char.IsDigit x)
+    |> Seq.filter Char.IsDigit
     |> Seq.map (fun x -> x |> string)
     |> Seq.collect(fun x -> (getDigitIndices x  (x |> Int32.Parse) line))
     |> Seq.distinct
@@ -53,8 +53,8 @@ let getNumbersIndicesInLine (line : string) =
 
 let getCalibrationValue line = 
     let indices =
-        getNumbersIndicesInLine line
-        |> List.append (getIndicesForSpelledOutNumbers line)
+        getNumbersIndices line
+        |> List.append (getSpelledOutNumbersIndices line)
         |> List.sortBy (fun x -> x.index)
 
     let calibrationValue =
