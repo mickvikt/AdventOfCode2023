@@ -45,8 +45,8 @@ let getSpelledOutNumbersIndices (line : string) =
 let getNumbersIndices (line : string) =
     line
     |> Seq.filter Char.IsDigit
-    |> Seq.map (fun x -> x |> string)
-    |> Seq.collect(fun x -> (getDigitIndices x  (x |> Int32.Parse) line))
+    |> Seq.map string
+    |> Seq.collect(fun x -> getDigitIndices x  (x |> Int32.Parse) line)
     |> Seq.distinct
     |> Seq.toList
 
