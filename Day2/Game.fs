@@ -14,6 +14,9 @@ module Combination =
         combination.Green <= bag.Green &&
         combination.Blue <= bag.Blue
 
+    let power combination =
+        combination.Red * combination.Green * combination.Blue
+
 module Game =
     open Combination
 
@@ -28,3 +31,22 @@ module Game =
     let isPossible bag game =
         game.Draws
         |> List.forall (fun draw -> draw |> Combination.isPossible bag)
+
+    let getMinAmountsForPlayableGame game =
+        let minRed =
+            game.Draws
+            |> List.map(fun x -> x.Red)
+            |> List.max
+            
+        let minGreen =
+            game.Draws
+            |> List.map(fun x -> x.Green)
+            |> List.max
+
+        let minBlue =
+            game.Draws
+            |> List.map(fun x -> x.Blue)
+            |> List.max
+
+        Combination.create minRed minGreen minBlue
+        
