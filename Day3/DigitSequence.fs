@@ -3,11 +3,6 @@ namespace Day3
 module DigitSequence =
     open System
 
-    type SequenceAccumulator = {
-        DigitSequence : char array list
-        RemainingCharacters: char array
-    }
-
     let getDigitSequences (row : char array) : char array list =
         let separator = '.'
         let digitsWithSeparators =
@@ -22,4 +17,6 @@ module DigitSequence =
             |> Array.map (fun x -> x.ToCharArray())
             |> Array.toList
         res
+
+    let getAdjacentElements (engineSchema : char array) (digitSequence : char array)
         
