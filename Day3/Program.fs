@@ -1,27 +1,15 @@
-﻿open System
+﻿open Day3
+open System
 open System.IO
 
-
-let getPreviousRow (matrix : string array) elementIndex =
-    let row =
-        match elementIndex with
-        | 0 -> None
-        | _ -> Some (matrix[elementIndex - 1])
-    row
-
-let getAdjacentElements (row : char array) (digitSequence : char array) elementIndex =
-    let elementToTheLeft = Array.tryItem (elementIndex - 1) row
-    let elementToTheRight =
-        Array.tryItem (elementIndex + digitSequence.Length) row
-
-    [elementToTheLeft; elementToTheRight]
-    |> List.choose id
+let engineSchema = File.ReadAllLines "engineSchema.txt"
+//let x = EngineSchema.getPartNumbers engineSchema
 
 
-let engineSchema = File.ReadAllLines
+let x = DigitSequence.getAdjacentElements engineSchema 2 2 ['3';'5']
+ 
+let charArrays = engineSchema |> Array.map(fun x -> x.ToCharArray())
+// let y = Row.scanRange charArrays[0] [| -1; 4 |] 0
 
-open System
-open Day3
-let testLine = "...567....89.1...19."
-let x = DigitSequence.getDigitSequences (testLine.ToCharArray())
+// let y = CurrentRow.getAdjacentElements charArrays 0 5 ['1';'1';'4']
 printfn "%A" x

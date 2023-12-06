@@ -4,8 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DigitSequence.fs" />
     <Compile Include="Row.fs" />
+    <Compile Include="DigitSequence.fs" />
+    <Compile Include="EngineSchemaLine.fs" />
+    <Compile Include="EngineSchema.fs" />
     <Compile Include="Program.fs" />
     <Content Include="engineschema.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

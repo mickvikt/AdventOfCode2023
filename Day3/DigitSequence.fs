@@ -1,22 +1,35 @@
 namespace Day3
+open PreviousRow
+
+type DigitSequence = {
+    RowIndex : int
+    ColumnIndex : int
+    Sequence : char list
+}
 
 module DigitSequence =
-    open System
+    let create rowIndex columnIndex sequence =
+        { RowIndex = rowIndex; ColumnIndex = columnIndex; Sequence = sequence}
 
-    let getDigitSequences (row : char array) : char array list =
-        let separator = '.'
-        let digitsWithSeparators =
-            row
-            |> Array.map (fun x -> if Char.IsDigit x then x else separator)
-            |> String
-            
-        let splitDigits = digitsWithSeparators.Split separator
-        let res =
-            splitDigits
-            |> Array.filter (fun x -> x.Length > 0)
-            |> Array.map (fun x -> x.ToCharArray())
-            |> Array.toList
-        res
+    let getAdjacentElements (matrix : string array) rowIndex columnIndex  sequence=
+        let charArrays = matrix |> Array.map(fun x -> x.ToCharArray())
+        let previousRowAdjacent =
+            PreviousRow.getAdjacentElements
+                charArrays
+                rowIndex
+                columnIndex
+                sequence
+        let currentRowAdjacent =
+            CurrentRow.getAdjacentElements
+                charArrays
+                rowIndex
+                columnIndex
+                sequence
+        let nextRowAdjacent =
+            NextRow.getAdjacentElements
+                charArrays
+                rowIndex
+                columnIndex
+                sequence
 
-    let getAdjacentElements (engineSchema : char array) (digitSequence : char array)
-        
+        previousRowAdjacent @ currentRowAdjacent @nextRowAdjacent
