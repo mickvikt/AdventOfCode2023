@@ -16,7 +16,7 @@ module EngineSchemaLine =
 
     let getDigitSequences (engineSchema : string array) rowIndex =
         let row = engineSchema[rowIndex]
-        let res =
+        let acc =
             row.ToCharArray()
             |> Array.fold
                 (fun acc ch ->
@@ -42,4 +42,8 @@ module EngineSchemaLine =
                                                                                        CurrentSequence = None
                                                                             })
                 initialAccumulator
-        res.Sequences
+        match acc.CurrentSequence with
+        | None -> acc.Sequences
+        | Some x -> match (acc.Sequences |> List.contains x) with
+                                   | true -> acc.Sequences
+                                   | false -> acc.Sequences @ [x]
