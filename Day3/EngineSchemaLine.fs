@@ -47,3 +47,24 @@ module EngineSchemaLine =
         | Some x -> match (acc.Sequences |> List.contains x) with
                                    | true -> acc.Sequences
                                    | false -> acc.Sequences @ [x]
+
+    let splitSequenceIndexToColumnIndex (splitSequences : string array) index =
+        [0 .. index]
+        |> List.map (fun x -> match splitSequences[x].Length with
+                                   | 0 -> 1
+                                   | y -> y )
+        |> List.sum
+
+
+    let getDigitSequences2 (engineSchema : string array) rowIndex =
+        let digitSeparator = '.'
+        let row = engineSchema[rowIndex]
+        
+        let rowWithNonDigitsReplaced =
+            row.ToCharArray()
+            |> Array.map (fun x -> if Char.IsDigit x then x else digitSeparator)
+            |> String
+            
+        let digitSequences = rowWithNonDigitsReplaced.Split digitSeparator
+        digitSequences
+        |> Array.map (fun x -> { RowIndex = rowIndex; ColumnIndex = })
